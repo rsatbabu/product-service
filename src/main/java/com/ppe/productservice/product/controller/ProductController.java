@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ppe.productservice.product.entity.OrderEventEntity;
@@ -35,6 +34,11 @@ public class ProductController {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	/**
+	 * This API consumes the order events from the stream
+	 * and updates the product table and the product document table
+	 * 
+	 */
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	@RequestMapping("/processOrderEventsForProduct")
 	public void processOrderEventsForProduct() {
@@ -63,12 +67,10 @@ public class ProductController {
 
 	private void updateProductDocumentRecord(ProductEntity productEntity) {
 		Product product = new Product();
-		product.setDescription(productEntity.getDescription());
-		product.setId(productEntity.getId());
-		product.setName(productEntity.getName());
-		product.setInstock(productEntity.getInstock());
-		product.setPrice(productEntity.getPrice());
-		String detail;
+		new Product(productEntity.getId(),productEntity.getName(),productEntity.getDescription(),
+				productEntity.getPrice(),productEntity.getInstock());
+
+		String detail="";
 		try {
 			detail = objectMapper.writeValueAsString(product);
 
