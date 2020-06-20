@@ -66,7 +66,7 @@ public class ProductController {
 	}
 
 	private void updateProductDocumentRecord(ProductEntity productEntity) {
-		Product product = new Product();
+		Product product = 
 		new Product(productEntity.getId(),productEntity.getName(),productEntity.getDescription(),
 				productEntity.getPrice(),productEntity.getInstock());
 
