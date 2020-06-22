@@ -40,7 +40,7 @@ public class ProductController {
 	 * and updates the product table and the product document table
 	 * 
 	 */
-	@CrossOrigin(origins = "*", maxAge = 3600)
+	//@CrossOrigin(origins = "*", maxAge = 3600)
 	@PostMapping("/processOrderEventsForProduct")
 	public void processOrderEventsForProduct() {
 		// Simulate a Consumer reading from MQ
