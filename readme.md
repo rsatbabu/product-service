@@ -76,12 +76,22 @@ Benefits
    - Inventory service has to look at send contact suppliers message
    
 
- Docker using link
-==================
+ Docker using link with IP Address
+======================================
  - Run the command
   `docker run --name shopping-cart -d -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -p 5433:5432  --restart=always postgres`  
  - docker inspect note the ipaddress
- - put the ipaddress in the application.properties for jdbc:postgresql://172.17.0.2:5432/postgres
+ - put the ipaddress in the application.properties for jdbc:postgresql://172.17.0.2:5432/postgres 
+ - mvn clean install
+ - `docker build -t product-service .`
+ - `docker run --name prod --link shopping-cart:shopping-cart product-service` 
+ - now the spring boot application running inside the docker container connects with the postgres docker container
+ 
+  Docker using link with docker --name 
+======================================
+ - Run the command with the name of container as shopping-cart
+  `docker run --name shopping-cart -d -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -p 5433:5432  --restart=always postgres`  
+ - put the name of container in the application.properties for jdbc:postgresql://shopping-cart::5432/postgres 
  - mvn clean install
  - `docker build -t product-service .`
  - `docker run --name prod --link shopping-cart:shopping-cart product-service` 
